@@ -30,7 +30,7 @@
 * 以下を参考に、ROS 2 Humbleをセットアップして下さい。
     * https://docs.ros.org/en/humble/index.html
 
-## Dockerを使ったros2_bridgeの起動
+<!-- ## Dockerを使ったros2_bridgeの起動
 ### Dockerのインストール
 * 以下を参考に、Dockerの設定を行って下さい。
     * https://docs.docker.com/engine/install/ubuntu/
@@ -44,7 +44,6 @@
 cd ~/kachaka-api/tools/ros2_bridge
 ./start_bridge.sh <カチャカのIPアドレス>
 ```
-
 ### 動作を確認する
 
 * トピックからメッセージを取得できるかどうか確認してみましょう。
@@ -73,7 +72,21 @@ locations:
     y: 2.328592
     theta: 0.0
 ```
+-->
 
+## ローカルでのros2_bridgeの起動
+
+```bash
+cd ~/kachaka-api/ros2/kachaka_grpc_ros2_bridge
+protoc -I ~/kachaka-api/protos --grpc_out src --plugin=protoc-gen-grpc=/usr/bin/grpc_cpp_plugin --cpp_out=src /home/robotics/kachaka-api/protos/kachaka-api.proto
+mkdir -p ~/kachaka-api-ros/src
+ln -s ~/kachaka-api/ros2/kachaka_* ~/kachaka-api-ros/src/
+cd ~/kachaka-api-ros
+rosdep install --from-paths src --ignore-src -r -y
+colcon build
+source ~/kachaka-api-ros/install/setup.bash
+ros2 launch kachaka_grpc_ros2_bridge grpc_ros2_bridge.launch.xml server_uri:=$KACHAKA_IP:26400 frame_prefix:='/'
+```
 
 ## 他のROS 2パッケージと連携する
 
