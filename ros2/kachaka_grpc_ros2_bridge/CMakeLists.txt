@@ -33,8 +33,10 @@ include_directories(gen-src ${GRPC_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS})
 ament_auto_add_library(
   ${PROJECT_NAME}
   SHARED
-  gen-src/kachaka-api.grpc.pb.cc
-  gen-src/kachaka-api.pb.cc
+  #gen-src/kachaka-api.grpc.pb.cc
+  #gen-src/kachaka-api.pb.cc
+  src/kachaka-api.grpc.pb.cc
+  src/kachaka-api.pb.cc
   src/component/auto_homing_component.cpp
   src/component/back_camera_component.cpp
   src/component/diagnostics_component.cpp
